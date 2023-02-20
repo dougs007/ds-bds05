@@ -18,6 +18,7 @@ public class User implements UserDetails, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true)
     private String email;
     private String password;
 
@@ -108,13 +109,12 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
-                .collect(Collectors.toList());
+        return this.roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority())).collect(Collectors.toList());
     }
 
     @Override
     public String getUsername() {
-        return email;
+        return this.email;
     }
 
     @Override
@@ -137,8 +137,8 @@ public class User implements UserDetails, Serializable {
         return true;
     }
 
-    public boolean hasHole(String roleName) {
-        for (Role role : roles) {
+    public boolean hasRole(String roleName) {
+        for (Role role : this.roles) {
             if (role.getAuthority().equals(roleName)) {
                 return true;
             }

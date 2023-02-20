@@ -16,7 +16,7 @@ public class Movie implements Serializable {
     private Long id;
     private String title;
     private String subTitle;
-    private Integer year;
+    private Integer yearsMovie;
     private String imgUrl;
     @Column(columnDefinition = "TEXT")
     private String synopsis;
@@ -25,18 +25,18 @@ public class Movie implements Serializable {
     private List<Review> reviews = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "genre_id", insertable = false, updatable = false)
+    @JoinColumn(name = "genre_id")
     private Genre genre;
 
     public Movie() {
     }
 
-    public Movie(Long id, String title, String subTitle, Integer year, String imgUrl, String synopsis, Genre genre) {
+    public Movie(Long id, String title, String subTitle, Integer yearsMovie, String imgUrl, String synopsis, Genre genre) {
         super();
         this.id = id;
         this.title = title;
         this.subTitle = subTitle;
-        this.year = year;
+        this.yearsMovie = yearsMovie;
         this.imgUrl = imgUrl;
         this.synopsis = synopsis;
         this.genre    = genre;
@@ -67,11 +67,11 @@ public class Movie implements Serializable {
     }
 
     public Integer getYear() {
-        return year;
+        return yearsMovie;
     }
 
-    public void setYear(Integer year) {
-        this.year = year;
+    public void setYear(Integer yearsMovie) {
+        this.yearsMovie = yearsMovie;
     }
 
     public String getImgUrl() {
